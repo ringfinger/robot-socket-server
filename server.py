@@ -15,20 +15,6 @@ posObj = Action.SetTargetPosAction("setTargetPos", 5.8, -2.08, -2.0, -1.0)
 pos = posObj.toJson()
 print pos
 
-'''{
-  "Action": {
-              "CallBackFunction" : {
-                                     "name" : "setTargetPos",
-                                     "data" : {
-                        "robot_x": 5.29,
-                        "robot_y": -0.18,
-                        "end_x"  : -2.0,
-                        "end_y"  : -1.0
-                          }
-                                   }
-             }
-}
-'''
 # Configure socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
