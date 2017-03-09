@@ -4,19 +4,24 @@
 import socket
 import json
 from time import sleep
+import Action
 
 BUF_SIZE = 1024
 # Address
-HOST = '192.168.1.58'
+HOST = '192.168.1.100'
 PORT = 7700
 
-pos = '''{
+posObj = Action.SetTargetPosAction("setTargetPos", 5.8, -2.08, -2.0, -1.0)
+pos = posObj.toJson()
+print pos
+
+'''{
   "Action": {
               "CallBackFunction" : {
                                      "name" : "setTargetPos",
                                      "data" : {
-                        "robot_x": -8.5,
-                        "robot_y": 2.0,
+                        "robot_x": 5.29,
+                        "robot_y": -0.18,
                         "end_x"  : -2.0,
                         "end_y"  : -1.0
                           }
@@ -30,5 +35,6 @@ s.bind((HOST, PORT))
 # 1: maximum number of requests waiting
 s.listen(1)
 client, addr = s.accept()  #wait for connection from robot
-
+sleep(1)
+print "Sending target Pos ..."
 client.sendall(pos)
