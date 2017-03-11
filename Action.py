@@ -27,12 +27,12 @@ class Action():
     #         raise
 
 class GetRobotPosAction(Action):
-    def __init__(self, name):
-        Action.__init__(self, name)
+    def __init__(self):
+        Action.__init__(self, "getRobotPos")
 
 class SetTargetPosAction(Action):
-    def __init__(self, name, robot_x, robot_y, end_x, end_y):
-        Action.__init__(self, name) 
+    def __init__(self, robot_x, robot_y, end_x, end_y):
+        Action.__init__(self, "setTargetPos") 
         self.data = {
             "robot_x": robot_x,
             "robot_y": robot_y,
@@ -49,3 +49,7 @@ class SetTargetPosAction(Action):
                 }
             }
         })
+
+if __name__ == "__main__":
+    getpos = GetRobotPosAction()
+    print getpos.toJson()
