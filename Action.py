@@ -25,6 +25,9 @@ class Action():
     #     except e:
     #         print e
     #         raise
+class GetStatusAction(Action):
+    def __init__(self):
+        Action.__init__(self, "getStatus")
 
 class GetRobotPosAction(Action):
     def __init__(self):

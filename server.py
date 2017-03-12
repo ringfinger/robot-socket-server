@@ -14,6 +14,14 @@ PORT = 7700
 with open('points.json', 'r') as f:
     points = json.load(f)
 
+def hasArrived():
+    status_msg = Action.GetStatusAction()
+    status = kit.send_msg(status_msg.toJson())
+    statusObj = json.loads(status.strip())
+    print "robot status no:", statusObj["data"]["status"]
+    return statusObj["data"]["status"]
+
+
 #init navikit connector
 kit = NavikitConnector.NavikitConnector()
 for i in range(len(points)):
@@ -22,13 +30,10 @@ for i in range(len(points)):
     pos = posObj.toJson()
 
     kit.send_msg(pos)
-    sleep(20)
-# # Configure socket
-# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# s.bind((HOST, PORT))
-# # 1: maximum number of requests waiting
-# s.listen(1)
-# client, addr = s.accept()  #wait for connection from robot
-# sleep(1)
-# print "Sending target Pos ..."
-# client.sendall(pos)
+    print "moving to point", i+1
+    sleep(2)
+    while hasArrived() > 0:
+        sleep(1)
+    print "------------ point arrived,", i+1 ," --------------"
+    sleep(1 + points[i]['delay'])
+    
